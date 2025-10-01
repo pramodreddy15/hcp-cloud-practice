@@ -1,11 +1,20 @@
-provider "aws" {
-  region = "us-east-1"
+terraform {
+  cloud {
+
+    organization = "pramod-organization"
+
+    workspaces {
+      name = "CLI-DRIVEN-WORKFLOW"
+    }
+  }
+  required_providers {
+    time = {
+      source  = "hashicorp/time"
+      version = "0.13.1"
+    }
+  }
 }
 
-resource "aws_instance" "pramod" {
-  ami = "ami-0360c520857e3138f"
-  instance_type = "t2.micro"
-  tags = {
-    Name = "pramod"
-  }
+resource "time_sleep" "wait_10_seconds" {
+  create_duration = "10s"
 }
